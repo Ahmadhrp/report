@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html 
+    xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <title>Layout</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
+        <script type="text/javascript" th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+        <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" th:href="@{/}">Daily Report</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a th:href="@{/}">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Log out</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Search..."/>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}" style="cursor: pointer;"><a th:href="@{/}">Dashboard <span class="sr-only">(current)</span></a></li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/daily' ? 'active':''}" ><a style="cursor: pointer;" th:href="@{/daily}">Daily Report</a></li>
+                        <li><a style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('formlogout').submit();">Logout</a></li>
+                        <form name="formlogout" th:action="@{/logout}" method="post" id="formlogout">
+                        </form>
+                    </ul>  
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="content">
+                </div> 
+            </div>
+        </div>
+        <!--        th:remove="tag"-->
+        <div layout:fragment="custom-footer">
+        </div>
+    </body>
+</html>

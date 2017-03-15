@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="user/layout">
+    <!--      layout:decorate="~{user/layout}">-->
+    <!--      layout:decorator="user/layout">-->
+
+    <head>
+        <title>Daily Report</title>
+        <style>
+            .spanhead{
+                margin: -10px 0 20px;
+                border-bottom: 1px solid #eee;
+            }      
+            .phead{
+                font-size: 35px;
+                margin-left: -30px;
+            }
+            .left{
+                margin-left: 30px;
+                margin-top: 15px;
+            }
+            #input_report{
+                display:none;
+                margin-bottom: 10px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #eee;
+            }
+
+        </style> 
+        <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker3.min.css}"/>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <span class="spanhead col-md-12">
+                <p class="phead col-md-10">Daily Report</p> 
+                <button type="button" onclick="togleInput()" class="col-md-2 btn btn-default left">Input Report</button>
+            </span>
+            <div id="input_report">
+                <form class="form-inline" name="formreport" th:action="@{/daily}" method="post" id="formreport">
+                    <div class="form-group">
+                        <label for="tanggal">Tanggal : </label>
+                        <input class="form-control" id="date" name="tanggal" placeholder="MM/DD/YYYY" type="text"/>
+                        <!--<input class="form-control" type="text" name="tanggal" id="tanggal" title="tanggal" />-->
+                    </div>
+                    <div class="form-group" style="margin-left:30px;">
+                        <label for="uraian">Uraian : </label>
+                        <input class="form-control" type="text" name="uraian" id="uraian" title="uraian" />
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-left:30px;">Submit</button>
+                </form> 
+            </div>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Uraian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>3/1/2017</td>
+                            <td>Desain Mock Up Aplikasi</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>3/2/2017</td>
+                            <td>Desain database Aplikasi</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div layout:fragment="custom-footer">
+            <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+            <script th:inline="javascript">
+                $(document).ready(function () {
+                    
+                    var date_input = $('input[name="tanggal"]'); //our date input has the name "date"
+                    //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                    var options = {
+                        format: 'mm/dd/yyyy',           
+                        todayHighlight: true,
+                        autoclose: true
+                    };
+                    date_input.datepicker(options);
+                });
+
+                function togleInput() {
+                    $('#input_report').toggle();
+                }
+            </script>
+        </div>
+    </body>
+</html>

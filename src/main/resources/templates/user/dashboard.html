@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="user/layout">
+    <!--      layout:decorate="~{user/layout}">-->
+    <!--      layout:decorator="user/layout">-->
+
+    <head>
+        <title>Dashboard</title>
+        <style>
+
+            .new{
+                color: #ffffff;
+            }
+
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"/>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <h1 class="page-header">Selamat Datang, <span sec:authentication="name"></span></h1>
+            <div class="row placeholders">
+                <div class="col-xs-12 col-sm-4 placeholder">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"/>
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-xs-12 col-sm-4 placeholder">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"/>
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-xs-12 col-sm-4 placeholder">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"/>
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+            </div>
+
+            <h2 class="sub-header">Section</h2>
+            <div>
+                Development Mode
+            </div>
+        </div>       
+        <div layout:fragment="custom-footer">
+           <script th:inline="javascript">
+                console.log('hai');
+            </script>
+        </div>
+    </body>
+</html>

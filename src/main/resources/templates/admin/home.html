@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/layout">
+    <head>
+        <title>Home</title>   
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="col-md-12">
+                <h1 class="text-center">Maintenance Team</h1>
+            </div>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Nama</th>
+                            <th class="text-center">Username</th>
+                            <th class="text-center">Posisi</th>
+                            <th class="text-center">Password</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="users : ${users}">
+                            <td class="text-center" th:text="${users.getNama()}"></td>
+                            <td class="text-center" th:text="${users.getUsername()}"></td>
+                            <td class="text-center" th:text="${users.getPosisi()}"></td>
+                            <td class="text-center" th:text="${users.getPassword()}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
