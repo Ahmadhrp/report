@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -37,24 +38,32 @@ public class reportController {
 
     @RequestMapping(value = "/daily", method = RequestMethod.GET)
     public String inputReport(Model model) {
-        model.addAttribute("report", reportRepo.findAll());
+        Sort sort = new Sort( Sort.Direction.ASC, "tanggal" );
+//        List<User> users = new ArrayList<User>();
+//        for( User user : userRepository.findAll( sort ) )
+//        {
+//            users.add( user );
+//        }
+//        return users;
+        model.addAttribute("report", reportRepo.findAll(sort));
         return "user/formreport";
     }
 
     @RequestMapping(value = "/daily", method = RequestMethod.POST)
     public String postReport(HttpServletRequest request, Principal principal) throws ParseException {
 
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();  
         Users logged_in_user =  userRepoFindLoggedInUser.findByUsername(user.getUsername()); 
         Date date = dateformat.parse(request.getParameter("tanggal"));
-        java.sql.Date sql = new java.sql.Date(date.getTime());
+        //java.sql.Date sql = new java.sql.Date(date.getTime());
         //System.out.println(logged_in_user.getId());
         //You can invoke the getter for id on  user object.System.out.println(auth.);
-//        System.out.println(dateformat.format(date));
+        //System.out.println("Date dari Form = "+request.getParameter("tanggal"));
+        //System.out.println("Date setelah diparse = "+date);
         Dailyreport report = new Dailyreport();
         report.setUser_id(logged_in_user.getId());
-        report.setTanggal(sql);
+        report.setTanggal(date);
         report.setUraian(request.getParameter("uraian"));
         report.setCreatedAt(new Date());
         report.setCreatedby(principal.getName());
