@@ -8,13 +8,10 @@ and open the template in the editor.
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="user/layout">
-    <!--      layout:decorate="~{user/layout}">-->
-    <!--      layout:decorator="user/layout">-->
-
     <head>
         <title>Daily Report</title>
         <style>
-            .spanhead{
+/*            .spanhead{
                 margin: -10px 0 20px;
                 border-bottom: 1px solid #eee;
             }      
@@ -25,9 +22,9 @@ and open the template in the editor.
             .left{
                 margin-left: 30px;
                 margin-top: 15px;
-            }
+            }*/
             #input_report{
-                display:none;
+                
                 margin-bottom: 10px;
                 padding-bottom: 20px;
                 border-bottom: 1px solid #eee;
@@ -38,62 +35,36 @@ and open the template in the editor.
     </head>
     <body>
         <div layout:fragment="content">
-            <span class="spanhead col-md-12">
-                <p class="phead col-md-10">Daily Report</p> 
-                <button type="button" onclick="togleInput()" class="col-md-2 btn btn-default left">Input Report</button>
-            </span>
+            <h2 class="page-header">Input Report</h2>
             <div id="input_report">
-                <form class="form-inline" name="formreport" th:action="@{/daily}" method="post" id="formreport">
+                <form class="form-inline" name="formreport" th:object="${report}" th:action="@{/report/daily(id=${report.getId()})}" method="post" id="formreport">
                     <div class="form-group">
                         <label for="tanggal">Tanggal : </label>
-                        <input class="form-control" id="date" name="tanggal" placeholder="YYYY-MM-DD" type="text"/>
+                        <input class="form-control" th:field="*{tanggal}" id="date" name="tanggal" placeholder="YYYY-MM-DD" type="text"/>
                         <!--<input class="form-control" type="text" name="tanggal" id="tanggal" title="tanggal" />-->
                     </div>
                     <div class="form-group" style="margin-left:30px;">
                         <label for="uraian">Uraian : </label>
-                        <input class="form-control" type="text" name="uraian" id="uraian" title="uraian" />
+                        <input class="form-control" th:field="*{uraian}" type="text" name="uraian" id="uraian" title="uraian" />
                     </div>
                     <button type="submit" class="btn btn-primary" style="margin-left:30px;">Submit</button>
                 </form> 
-            </div>
-            <div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal</th>
-                            <th>Uraian</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="report: ${report}">
-                            <td th:text="${reportStat.count}"></td>
-                            <td th:text="${report.getTanggal()}"></td>
-                            <td th:text="${report.getUraian()}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
+            </div>            
         </div>
         <div layout:fragment="custom-footer">
             <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
             <script th:inline="javascript">
                 $(document).ready(function () {
 
-                    var date_input = $('input[name="tanggal"]'); //our date input has the name "date"
-                    //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                    var options = {
-                        format: 'yyyy-mm-dd',
+                var date_input = $('input[name="tanggal"]'); //our date input has the name "date"
+                //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                var options = {
+                format: 'yyyy-mm-dd',
                         todayHighlight: true,
                         autoclose: true
-                    };
-                    date_input.datepicker(options);
+                };
+                date_input.datepicker(options);
                 });
-
-                function togleInput() {
-                    $('#input_report').toggle();
-                }
             </script>
         </div>
     </body>

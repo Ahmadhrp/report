@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="user/layout">
+    <!--      layout:decorate="~{user/layout}">-->
+    <!--      layout:decorator="user/layout">-->
+
+    <head>
+        <title>Daily Report</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <h2 class="page-header">Input Report</h2>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Uraian</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="report: ${reportlist}">
+                            <td th:text="${reportStat.count}"></td>
+
+                            <td th:text="${report.getTanggal()}"></td>
+                            <td th:text="${report.getUraian()}"></td>
+                            <td>
+                                <a th:href="@{/report/daily(id=${report.getId()})}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="left" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a> 
+                                <a href="#" th:onclick="'hapus('+ ${report.id} +')'" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="right" title="Hapus"><i class="glyphicon glyphicon-remove"></i></a> 
+                                <form th:id="'delete_user_' + ${report.id}" th:action="@{/report/hapus(id=${report.getId()})}" method="POST" style="display: none;">
+                                </form>
+
+                            </td>
+                            <!--                               id="'delete_user_'${report.id}" -->
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div layout:fragment="custom-footer">
+            <script th:inline="javascript">
+                function hapus(id)
+                {
+                    $('#delete_user_' + id).submit();
+                }
+            </script>
+        </div>
+    </body>
+</html>

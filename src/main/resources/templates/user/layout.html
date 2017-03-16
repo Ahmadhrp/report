@@ -47,7 +47,8 @@ and open the template in the editor.
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}" style="cursor: pointer;"><a th:href="@{/}">Dashboard <span class="sr-only">(current)</span></a></li>
-                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/daily' ? 'active':''}" ><a style="cursor: pointer;" th:href="@{/daily}">Daily Report</a></li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/report/list' ? 'active':''}" ><a style="cursor: pointer;" th:href="@{/report/list}">Daily Report</a></li>
+                        <li th:classappend="${#httpServletRequest.getRequestURI() == '/report/daily' ? 'active':''}" ><a style="cursor: pointer;" th:href="@{/report/daily}">Input Daily</a></li>
                         <li><a style="cursor: pointer;" onclick="event.preventDefault(); document.getElementById('formlogout').submit();">Logout</a></li>
                         <form name="formlogout" th:action="@{/logout}" method="post" id="formlogout">
                         </form>
