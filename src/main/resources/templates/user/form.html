@@ -35,7 +35,7 @@ and open the template in the editor.
     </head>
     <body>
         <div layout:fragment="content">
-            <h2 class="page-header">Input Report</h2>
+            <h2 class="page-header">Input Report Daily</h2>
             <div id="input_report">
                 <form class="form-inline" name="formreport" th:object="${report}" th:action="@{/report/daily(id=${report.getId()})}" method="post" id="formreport">
                     <div class="form-group">
